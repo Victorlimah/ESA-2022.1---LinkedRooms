@@ -4,12 +4,15 @@ import { AppProvider } from "../providers/AppContext";
 
 // import PrivateRoute from "./../services/Private";
 
+import Dashboard from "../pages/dashboard";
+
 export default function Router() {
   return (
     <BrowserRouter>
       <AppProvider>
         <Routes>
           <Route path="/" element={<h1>Olá mundo</h1>} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </AppProvider>
