@@ -4,6 +4,12 @@ export const Container = styled.nav`
   display: flex;
   flex-direction: column;
 
+  *{
+    // desabilitar a border-box do mui
+    border: none;
+
+  }
+
   #logo{
     margin-left: 20px;
     font-weight: bold;
@@ -21,4 +27,19 @@ export const Container = styled.nav`
   .collapsible{
     color: #000;
   }
+
+ .MuiBox-root{
+  button{
+
+    color: #fff;
+  }
+
+  .MuiTabPanel-root{
+    background-color: #fff;
+  }
+ }
+
+
+
+
 `;

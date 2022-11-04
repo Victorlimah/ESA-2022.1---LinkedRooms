@@ -129,7 +129,7 @@ table {
 
  *{
   box-sizing: border-box;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
   }
   
   body{
