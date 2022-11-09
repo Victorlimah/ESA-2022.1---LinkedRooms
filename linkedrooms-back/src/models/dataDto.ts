@@ -21,7 +21,7 @@ export type BlockDto = {
   name: string;
 };
 
-export type SheduleDto = {
+export type ScheduleDto = {
   schedule: string;
   day: string;
 };

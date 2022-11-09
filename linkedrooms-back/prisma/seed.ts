@@ -1,4 +1,12 @@
-import { TeacherDto, BlockDto, PeriodDto, CourseDto, TagDto } from "./../src/models/dataDto";
+import {
+  TeacherDto,
+  BlockDto,
+  PeriodDto,
+  CourseDto,
+  TagDto,
+  ScheduleDto,
+  RoomDto,
+} from "./../src/models/dataDto";
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -12,6 +20,8 @@ async function main() {
   await prisma.$executeRaw`TRUNCATE TABLE "period" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "courses" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "tags" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "schedules" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "rooms" RESTART IDENTITY CASCADE;`;
 
   // factory data
   const teachers = teachersFactory();
@@ -19,6 +29,9 @@ async function main() {
   const periods = periodFactory();
   const courses = coursesFactory();
   const tags = tagsFactory();
+  const schedules = schedulesFactory();
+  const rooms = roomsFactory();
+
 
   // insert data
   const teacher = await prisma.teachers.createMany({ data: teachers });
@@ -35,6 +48,13 @@ async function main() {
 
   const tag = await prisma.tags.createMany({ data: tags });
   console.log(`Created ${tag.count} tags`);
+
+  const schedule = await prisma.schedule.createMany({ data: schedules });
+  console.log(`Created ${schedule.count} schedules`);
+
+  const room = await prisma.rooms.createMany({ data: rooms });
+  console.log(`Created ${room.count} rooms`);
+
 }
 
 main()
@@ -132,12 +152,99 @@ function coursesFactory(){
 
 function tagsFactory(){
   const tags: TagDto[] = [
-    { name: "SI" },
-    { name: "LCC" },
     { name: "AR CONDICIONADO" },
     { name: "VENTILADOR" },
     { name: "PROJETOR" },
+    { name: "SI (M/T)" },
+    { name: "LCC (M/T)" },
+    { name: "MATEMATICA (N)" },
   ];
 
   return tags;
+}
+
+function schedulesFactory(){
+  const schedules: ScheduleDto[] = [
+    { schedule: "08:00 - 10:00", day: "SEGUNDA" },
+    { schedule: "10:00 - 12:00", day: "SEGUNDA" },
+    { schedule: "13:00 - 15:00", day: "SEGUNDA" },
+    { schedule: "15:00 - 17:00", day: "SEGUNDA" },
+    { schedule: "19:00 - 20:40", day: "SEGUNDA" },
+    { schedule: "20:40 - 22:40", day: "SEGUNDA" },
+
+    { schedule: "08:00 - 10:00", day: "TERÇA" },
+    { schedule: "10:00 - 12:00", day: "TERÇA" },
+    { schedule: "13:00 - 15:00", day: "TERÇA" },
+    { schedule: "15:00 - 17:00", day: "TERÇA" },
+    { schedule: "19:00 - 20:40", day: "TERÇA" },
+    { schedule: "20:40 - 22:40", day: "TERÇA" },
+
+    { schedule: "08:00 - 10:00", day: "QUARTA" },
+    { schedule: "10:00 - 12:00", day: "QUARTA" },
+    { schedule: "13:00 - 15:00", day: "QUARTA" },
+    { schedule: "15:00 - 17:00", day: "QUARTA" },
+    { schedule: "19:00 - 20:40", day: "QUARTA" },
+    { schedule: "20:40 - 22:40", day: "QUARTA" },
+
+    { schedule: "08:00 - 10:00", day: "QUINTA" },
+    { schedule: "10:00 - 12:00", day: "QUINTA" },
+    { schedule: "13:00 - 15:00", day: "QUINTA" },
+    { schedule: "15:00 - 17:00", day: "QUINTA" },
+    { schedule: "19:00 - 20:40", day: "QUINTA" },
+    { schedule: "20:40 - 22:40", day: "QUINTA" },
+
+    { schedule: "08:00 - 10:00", day: "SEXTA" },
+    { schedule: "10:00 - 12:00", day: "SEXTA" },
+    { schedule: "13:00 - 15:00", day: "SEXTA" },
+    { schedule: "15:00 - 17:00", day: "SEXTA" },
+    { schedule: "19:00 - 20:40", day: "SEXTA" },
+    { schedule: "20:40 - 22:40", day: "SEXTA" },
+  ];
+
+  return schedules;
+}
+
+function roomsFactory(){
+  const rooms: RoomDto[] = [
+    { number: "101", capacity: 30, blockId: 1 },
+    { number: "102", capacity: 30, blockId: 1 },
+    { number: "103", capacity: 30, blockId: 1 },
+    { number: "104", capacity: 30, blockId: 1 },
+    { number: "105", capacity: 30, blockId: 1 },
+    { number: "106", capacity: 30, blockId: 1 },
+    { number: "201", capacity: 30, blockId: 1 },
+    { number: "202", capacity: 30, blockId: 1 },
+    { number: "203", capacity: 30, blockId: 1 },
+    { number: "204", capacity: 30, blockId: 1 },
+    { number: "205", capacity: 30, blockId: 1 },
+    { number: "206", capacity: 30, blockId: 1 },
+
+    { number: "101", capacity: 30, blockId: 2 },
+    { number: "102", capacity: 30, blockId: 2 },
+    { number: "103", capacity: 30, blockId: 2 },
+    { number: "104", capacity: 30, blockId: 2 },
+    { number: "105", capacity: 30, blockId: 2 },
+    { number: "106", capacity: 30, blockId: 2 },
+    { number: "201", capacity: 30, blockId: 2 },
+    { number: "202", capacity: 30, blockId: 2 },
+    { number: "203", capacity: 30, blockId: 2 },
+    { number: "204", capacity: 30, blockId: 2 },
+    { number: "205", capacity: 30, blockId: 2 },
+    { number: "206", capacity: 30, blockId: 2 },
+
+    { number: "101", capacity: 30, blockId: 3 },
+    { number: "102", capacity: 30, blockId: 3 },
+    { number: "103", capacity: 30, blockId: 3 },
+    { number: "104", capacity: 30, blockId: 3 },
+    { number: "105", capacity: 30, blockId: 3 },
+    { number: "106", capacity: 30, blockId: 3 },
+    { number: "201", capacity: 30, blockId: 3 },
+    { number: "202", capacity: 30, blockId: 3 },
+    { number: "203", capacity: 30, blockId: 3 },
+    { number: "204", capacity: 30, blockId: 3 },
+    { number: "205", capacity: 30, blockId: 3 },
+    { number: "206", capacity: 30, blockId: 3 },
+  ];
+
+  return rooms;
 }

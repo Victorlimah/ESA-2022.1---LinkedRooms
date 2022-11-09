@@ -54,9 +54,9 @@ model Blocks {
   @@map("blocks")
 }
 
-model Shedules {
+model Schedule {
   id        Int      @id @default(autoincrement())
-  shedule   String
+  schedule   String
   day       String
 
   classes   Classes[]
@@ -84,7 +84,7 @@ model Classes {
   disciplineId Int
   room      Rooms    @relation(fields: [roomId], references: [id])
   teacher   Teachers @relation(fields: [teacherId], references: [id])
-  shedule   Shedules @relation(fields: [sheduleId], references: [id])
+  shedule   Schedule @relation(fields: [sheduleId], references: [id])
   discipline Disciplines @relation(fields: [disciplineId], references: [id])
 }
 
