@@ -1,4 +1,4 @@
-import { TeacherDto, BlockDto } from "./../src/models/dataDto";
+import { TeacherDto, BlockDto, PeriodDto } from "./../src/models/dataDto";
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -9,10 +9,12 @@ async function main() {
   // delete data with reset ids
   await prisma.$executeRaw`TRUNCATE TABLE "teachers" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "blocks" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "period" RESTART IDENTITY CASCADE;`;
 
   // factory data
   const teachers = teachersFactory();
   const blocks = blocksFactory();
+  const periods = periodFactory();
 
   // insert data
   const teacher = await prisma.teachers.createMany({ data: teachers });
@@ -20,6 +22,9 @@ async function main() {
 
   const block = await prisma.blocks.createMany({ data: blocks });
   console.log(`Created ${block.count} blocks`);
+
+  const period = await prisma.period.createMany({ data: periods });
+  console.log(`Created ${period.count} periods`);
 }
 
 main()
@@ -88,4 +93,20 @@ function blocksFactory() {
   ];
 
   return blocks;
+}
+
+function periodFactory(){
+  const periods: PeriodDto[] = [
+    { number: 1 },
+    { number: 2 },
+    { number: 3 },
+    { number: 4 },
+    { number: 5 },
+    { number: 6 },
+    { number: 7 },
+    { number: 8 },
+    { number: 9 }
+  ];
+
+  return periods;
 }
