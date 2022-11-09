@@ -8,13 +8,18 @@ async function main() {
 
   // delete data with reset ids
   await prisma.$executeRaw`TRUNCATE TABLE "teachers" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "blocks" RESTART IDENTITY CASCADE;`;
 
   // factory data
   const teachers = teachersFactory();
+  const blocks = blocksFactory();
 
   // insert data
   const teacher = await prisma.teachers.createMany({ data: teachers });
-  console.log(`Created  ${teacher.count} teachers`);
+  console.log(`Created ${teacher.count} teachers`);
+
+  const block = await prisma.blocks.createMany({ data: blocks });
+  console.log(`Created ${block.count} blocks`);
 }
 
 main()
@@ -75,3 +80,12 @@ function teachersFactory(): TeacherDto[] {
   return teachers;
 }
 
+function blocksFactory() {
+  const blocks: BlockDto[] = [
+    { name: "R.A" },
+    { name: "R.C" },
+    { name: "R.E" },
+  ];
+
+  return blocks;
+}
