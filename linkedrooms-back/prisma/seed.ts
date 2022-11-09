@@ -1,4 +1,4 @@
-import { TeacherDto, BlockDto, PeriodDto, CourseDto } from "./../src/models/dataDto";
+import { TeacherDto, BlockDto, PeriodDto, CourseDto, TagDto } from "./../src/models/dataDto";
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -11,12 +11,14 @@ async function main() {
   await prisma.$executeRaw`TRUNCATE TABLE "blocks" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "period" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "courses" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "tags" RESTART IDENTITY CASCADE;`;
 
   // factory data
   const teachers = teachersFactory();
   const blocks = blocksFactory();
   const periods = periodFactory();
   const courses = coursesFactory();
+  const tags = tagsFactory();
 
   // insert data
   const teacher = await prisma.teachers.createMany({ data: teachers });
@@ -30,6 +32,9 @@ async function main() {
 
   const course = await prisma.courses.createMany({ data: courses });
   console.log(`Created ${course.count} courses`);
+
+  const tag = await prisma.tags.createMany({ data: tags });
+  console.log(`Created ${tag.count} tags`);
 }
 
 main()
@@ -123,4 +128,16 @@ function coursesFactory(){
   ];
 
   return courses;
+}
+
+function tagsFactory(){
+  const tags: TagDto[] = [
+    { name: "SI" },
+    { name: "LCC" },
+    { name: "AR CONDICIONADO" },
+    { name: "VENTILADOR" },
+    { name: "PROJETOR" },
+  ];
+
+  return tags;
 }
