@@ -1,4 +1,4 @@
-import { TeacherDto, BlockDto, PeriodDto } from "./../src/models/dataDto";
+import { TeacherDto, BlockDto, PeriodDto, CourseDto } from "./../src/models/dataDto";
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -10,11 +10,13 @@ async function main() {
   await prisma.$executeRaw`TRUNCATE TABLE "teachers" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "blocks" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "period" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "courses" RESTART IDENTITY CASCADE;`;
 
   // factory data
   const teachers = teachersFactory();
   const blocks = blocksFactory();
   const periods = periodFactory();
+  const courses = coursesFactory();
 
   // insert data
   const teacher = await prisma.teachers.createMany({ data: teachers });
@@ -25,6 +27,9 @@ async function main() {
 
   const period = await prisma.period.createMany({ data: periods });
   console.log(`Created ${period.count} periods`);
+
+  const course = await prisma.courses.createMany({ data: courses });
+  console.log(`Created ${course.count} courses`);
 }
 
 main()
@@ -109,4 +114,13 @@ function periodFactory(){
   ];
 
   return periods;
+}
+
+function coursesFactory(){
+  const courses: CourseDto[] = [
+    { name: "Bacharelado em Sistemas de Informação" },
+    { name: "Licenciatura em Ciência da Computação" },
+  ];
+
+  return courses;
 }
