@@ -1,0 +1,130 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tags {
+  id        Int      @id @default(autoincrement())
+  name      String
+
+  rooms     RoomsTags[]
+  @@map("tags")
+}
+
+model RoomsTags {
+  id        Int      @id @default(autoincrement())
+  roomId    Int
+  room      Rooms    @relation(fields: [roomId], references: [id])
+  
+  tagId     Int
+  tag      Tags     @relation(fields: [tagId], references: [id])
+
+  @@map("rooms_tags")
+}
+
+model Rooms {
+  id        Int      @id @default(autoincrement())
+  number   String  
+  capacity Int
+  // latitude  Float  @nullable  @map("lat")
+  // longitude Float  @nullable  @map("lng")
+
+  tags     RoomsTags[]
+  classes  Classes[]
+
+  blockId   Int
+  block     Blocks   @relation(fields: [blockId], references: [id])
+  
+  @@map("rooms")
+}
+
+model Blocks {
+  id        Int      @id @default(autoincrement())
+  name      String
+
+  rooms     Rooms[]
+
+  @@map("blocks")
+}
+
+model Shedules {
+  id        Int      @id @default(autoincrement())
+  shedule   String
+  day       String
+
+  classes   Classes[]
+
+  @@map("shedules")
+}
+
+model Teachers {
+  id        Int      @id @default(autoincrement())
+  name      String
+
+  classes   Classes[]
+
+  @@map("teachers")
+}
+
+model Classes {
+  id        Int      @id @default(autoincrement())
+  students  Int
+  schoolYear String
+
+  teacherId Int
+  sheduleId Int
+  roomId    Int
+  disciplineId Int
+  room      Rooms    @relation(fields: [roomId], references: [id])
+  teacher   Teachers @relation(fields: [teacherId], references: [id])
+  shedule   Shedules @relation(fields: [sheduleId], references: [id])
+  discipline Disciplines @relation(fields: [disciplineId], references: [id])
+}
+
+model Disciplines {
+  id        Int      @id @default(autoincrement())
+  name      String
+  code      String
+  workload  Int
+
+  classes   Classes[]
+  ClassGrids   ClassGrid[]
+
+  @@map("disciplines")
+}
+
+model Period {
+  id        Int      @id @default(autoincrement())
+  number    Int
+
+  ClassGrids   ClassGrid[]
+
+  @@map("period")
+}
+
+model Courses {
+  id        Int      @id @default(autoincrement())
+  name      String
+
+  ClassGrids   ClassGrid[]
+
+  @@map("courses")
+}
+
+model ClassGrid {
+  id        Int      @id @default(autoincrement())
+  periodId  Int
+  courseId  Int
+  disciplineId Int
+
+  period    Period   @relation(fields: [periodId], references: [id])
+  course    Courses  @relation(fields: [courseId], references: [id])
+  discipline Disciplines @relation(fields: [disciplineId], references: [id])
+}
