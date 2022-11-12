@@ -6,6 +6,7 @@ import {
   TagDto,
   ScheduleDto,
   RoomDto,
+  TagRoomsDto,
 } from "./../src/models/dataDto";
 import { PrismaClient } from '@prisma/client';
 
@@ -20,7 +21,7 @@ async function main() {
   await prisma.$executeRaw`TRUNCATE TABLE "period" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "courses" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "tags" RESTART IDENTITY CASCADE;`;
-  await prisma.$executeRaw`TRUNCATE TABLE "schedules" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "shedules" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "rooms" RESTART IDENTITY CASCADE;`;
 
   // factory data
@@ -65,7 +66,7 @@ main()
     await prisma.$disconnect();
   });
 
-function teachersFactory(): TeacherDto[] {
+function teachersFactory() {
   const nameTeachers = `ALEXANDRE SCAICO
   ANA LIZ SOUTO OLIVEIRA
   ANALIA CRISTINA BEZERRA TIBURTINO MEIRA
@@ -247,4 +248,115 @@ function roomsFactory(){
   ];
 
   return rooms;
+}
+
+function tagsRoomsFactory(){
+  const ac: TagRoomsDto[] = [
+    { tagId: 1, roomId: 3 },
+    { tagId: 1, roomId: 4 },
+    { tagId: 1, roomId: 5 },
+    { tagId: 1, roomId: 6 },
+    { tagId: 1, roomId: 7 },
+    { tagId: 1, roomId: 8 },
+    { tagId: 1, roomId: 10 },
+    { tagId: 1, roomId: 11 },
+    { tagId: 1, roomId: 12 },
+    { tagId: 1, roomId: 13 },
+    { tagId: 1, roomId: 14 },
+    { tagId: 1, roomId: 15 },
+    { tagId: 1, roomId: 16 },
+    { tagId: 1, roomId: 17 },
+    { tagId: 1, roomId: 18 },
+    { tagId: 1, roomId: 19 },
+    { tagId: 1, roomId: 20 },
+    { tagId: 1, roomId: 21 },
+    { tagId: 1, roomId: 22 },
+    { tagId: 1, roomId: 25 },
+    { tagId: 1, roomId: 26 },
+    { tagId: 1, roomId: 27 },
+    { tagId: 1, roomId: 34 },
+    { tagId: 1, roomId: 35 },
+  ];
+
+  const fan: TagRoomsDto[] = [
+   const projector: TagRoomsDto[] = [
+    { tagId: 1, roomId: 1 },
+    { tagId: 1, roomId: 2 },
+    { tagId: 1, roomId: 3 },
+    { tagId: 1, roomId: 4 },
+    { tagId: 1, roomId: 5 },
+    { tagId: 1, roomId: 6 },
+    { tagId: 1, roomId: 7 },
+    { tagId: 1, roomId: 8 },
+    { tagId: 1, roomId: 9 },
+    { tagId: 1, roomId: 10 },
+    { tagId: 1, roomId: 11 },
+    { tagId: 1, roomId: 12 },
+    { tagId: 1, roomId: 13 },
+    { tagId: 1, roomId: 14 },
+    { tagId: 1, roomId: 15 },
+    { tagId: 1, roomId: 16 },
+    { tagId: 1, roomId: 17 },
+    { tagId: 1, roomId: 18 },
+    { tagId: 1, roomId: 19 },
+    { tagId: 1, roomId: 20 },
+    { tagId: 1, roomId: 21 },
+    { tagId: 1, roomId: 22 },
+    { tagId: 1, roomId: 23 },
+    { tagId: 1, roomId: 24 },
+    { tagId: 1, roomId: 25 },
+    { tagId: 1, roomId: 26 },
+    { tagId: 1, roomId: 27 },
+    { tagId: 1, roomId: 28 },
+    { tagId: 1, roomId: 29 },
+    { tagId: 1, roomId: 30 },
+    { tagId: 1, roomId: 31 },
+    { tagId: 1, roomId: 32 },
+    { tagId: 1, roomId: 33 },
+    { tagId: 1, roomId: 34 },
+    { tagId: 1, roomId: 35 },
+    { tagId: 1, roomId: 36 },
+   }
+  ];
+
+  const projector: TagRoomsDto[] = [
+    { tagId: 1, roomId: 1 },
+    { tagId: 1, roomId: 2 },
+    { tagId: 1, roomId: 3 },
+    { tagId: 1, roomId: 4 },
+    { tagId: 1, roomId: 5 },
+    { tagId: 1, roomId: 6 },
+    { tagId: 1, roomId: 7 },
+    { tagId: 1, roomId: 8 },
+    { tagId: 1, roomId: 9 },
+    { tagId: 1, roomId: 10 },
+    { tagId: 1, roomId: 11 },
+    { tagId: 1, roomId: 12 },
+    { tagId: 1, roomId: 13 },
+    { tagId: 1, roomId: 14 },
+    { tagId: 1, roomId: 15 },
+    { tagId: 1, roomId: 16 },
+    { tagId: 1, roomId: 17 },
+    { tagId: 1, roomId: 18 },
+    { tagId: 1, roomId: 19 },
+    { tagId: 1, roomId: 20 },
+    { tagId: 1, roomId: 21 },
+    { tagId: 1, roomId: 22 },
+    { tagId: 1, roomId: 23 },
+    { tagId: 1, roomId: 24 },
+    { tagId: 1, roomId: 25 },
+    { tagId: 1, roomId: 26 },
+    { tagId: 1, roomId: 27 },
+    { tagId: 1, roomId: 28 },
+    { tagId: 1, roomId: 29 },
+    { tagId: 1, roomId: 30 },
+    { tagId: 1, roomId: 31 },
+    { tagId: 1, roomId: 32 },
+    { tagId: 1, roomId: 33 },
+    { tagId: 1, roomId: 34 },
+    { tagId: 1, roomId: 35 },
+    { tagId: 1, roomId: 36 },
+  ];
+
+  return [...ac, ...projector];
 }
