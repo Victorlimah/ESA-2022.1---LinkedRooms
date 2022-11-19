@@ -7,6 +7,8 @@ import {
   ScheduleDto,
   RoomDto,
   TagRoomsDto,
+  ClassDto,
+  DisciplineDto,
 } from "./../src/models/dataDto";
 import { PrismaClient } from '@prisma/client';
 
@@ -16,25 +18,28 @@ async function main() {
   console.log(`Start seeding ...`);
 
   // delete data with reset ids
-  await prisma.$executeRaw`TRUNCATE TABLE "teachers" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "tags" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "rooms" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "blocks" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "period" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "courses" RESTART IDENTITY CASCADE;`;
-  await prisma.$executeRaw`TRUNCATE TABLE "tags" RESTART IDENTITY CASCADE;`;
-  await prisma.$executeRaw`TRUNCATE TABLE "shedules" RESTART IDENTITY CASCADE;`;
-  await prisma.$executeRaw`TRUNCATE TABLE "rooms" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "classes" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "teachers" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "schedules" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "rooms_tags" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "disciplines" RESTART IDENTITY CASCADE;`;
 
   // factory data
-  const teachers = teachersFactory();
+  const tags = tagsFactory();
+  const rooms = roomsFactory();
   const blocks = blocksFactory();
   const periods = periodFactory();
   const courses = coursesFactory();
-  const tags = tagsFactory();
+  const classes = classesFactory();
+  const teachers = teachersFactory();
   const schedules = schedulesFactory();
-  const rooms = roomsFactory();
   const roomsTags = roomsTagsFactory();
-
+  const disciplines = disciplinesFactory();
 
   // insert data
   const teacher = await prisma.teachers.createMany({ data: teachers });
@@ -61,6 +66,11 @@ async function main() {
   const roomTag = await prisma.roomsTags.createMany({ data: roomsTags });
   console.log(`Created ${roomTag.count} roomsTags`);
 
+  const discipline = await prisma.disciplines.createMany({ data: disciplines });
+  console.log(`Created ${discipline.count} disciplines`);
+
+  const classe = await prisma.classes.createMany({ data: classes });
+  console.log(`Created ${classe.count} classes`);
 }
 
 main()
@@ -361,4 +371,103 @@ function roomsTagsFactory() {
   ];
 
   return [...ac, ...fan, ...projector];
+}
+
+function disciplinesFactory(){
+  const disciplines: DisciplineDto[] = [
+    { name: "ENGENHARIA DE SOFTWARE APLICADA", code: "8103155", workload: 60 },
+    { name: "INTRODUCAO A PROGRAMACAO", code: "8103104", workload: 60 },
+    { name: "ENGENHARIA DE SOFTWARE", code: "8103151", workload: 60 },
+    { name: "MODELAGEM DE DADOS", code: "8103169", workload: 60 },
+    { name: "ARQUITETURA DE COMPUTADORES I", code: "8103126", workload: 60 },
+    { name: "LINGUAGEM DE PROGRAMACAO", code: "8103125", workload: 60 },
+    { name: "INGLES INSTRUMENTAL", code: "8105003", workload: 60 },
+    {
+      name: "AUDITORIA E SEGURANCA DE SISTEMAS",
+      code: "8103209",
+      workload: 60,
+    },
+    {
+      name: "DESENVOLVIMENTOS DE SIST CORPORATIVOS",
+      code: "8103218",
+      workload: 60,
+    },
+    { name: "REDES DE COMPUTADORES", code: "8103152", workload: 60 },
+    { name: "PORTUGUES INSTRUMENTAL", code: "8105002", workload: 60 },
+    { name: "INTRODUCAO A PSICOLOGIA", code: "8101177", workload: 60 },
+    {
+      name: "PESQUISA APLIC A SISTEMAS DE INFORMACAO",
+      code: "8103145",
+      workload: 60,
+    },
+    { name: "MATEMÁTICA DISCRETA", code: "DCET00233", workload: 60 },
+    { name: "ALGEBRA LINEAR", code: "8103135", workload: 60 },
+    { name: "EMPREENDEDORISMO", code: "8108113", workload: 60 },
+    { name: "SISTEMAS DE APOIO A GESTÃO", code: "8103160", workload: 60 },
+    { name: "INTRODUCAO A SOCIOLOGIA", code: "8101105", workload: 60 },
+    { name: "GESTÃO DA QUALIDADE DE SOFTWARE", code: "8103220", workload: 60 },
+    { name: "METODOLOGIA CIENTÍFICA", code: "8101306", workload: 60 },
+    { name: "ANÁLISE DE DADOS I", code: "GDCET0100", workload: 60 },
+    { name: "SISTEMAS DISTRIBUIDOS", code: "8103161", workload: 60 },
+    { name: "PROBABILIDADE E ESTATISTICA", code: "8103147", workload: 60 },
+    {
+      name: "INTELIG ARTIFICIAL E SIST ESPECIALISTAS",
+      code: "8103157",
+      workload: 60,
+    },
+    { name: "INTRODUCAO AO COMPUTADOR", code: "8103106", workload: 60 },
+    { name: "SISTEMAS OPERACIONAIS", code: "8103215", workload: 60 },
+    { name: "PROGRAMACAO ORIENTADA A OBJETOS", code: "8103138", workload: 60 },
+    { name: "ADMINISTRAÇÃO I", code: "8108108", workload: 60 },
+    { name: "ETICA PROFISSIONAL", code: "8101231", workload: 60 },
+    { name: "LOGICA APLICADA A COMPUTACAO", code: "8103139", workload: 60 },
+    { name: "BANCO DE DADOS", code: "8103174", workload: 60 },
+    {
+      name: "ALGORITMOS E ESTRUTURA DE DADOS I",
+      code: "8103141",
+      workload: 60,
+    },
+    { name: "LIBRAS", code: "8105031", workload: 60 },
+  ];
+
+  return disciplines;
+}
+
+function classesFactory(){
+  const classes: ClassDto[] = [
+    {
+      teacherId: 22,
+      roomId: 8,
+      students: 33,
+      disciplineId: 19,
+      scheduleId: 9,
+      schoolYear: "2022.1",
+    },
+    {
+      teacherId: 22,
+      roomId: 8,
+      students: 33,
+      disciplineId: 19,
+      scheduleId: 10,
+      schoolYear: "2022.1",
+    },
+    {
+      teacherId: 38,
+      roomId: 9,
+      students: 46,
+      disciplineId: 30,
+      scheduleId: 9,
+      schoolYear: "2022.1",
+    },
+    {
+      teacherId: 38,
+      roomId: 9,
+      students: 46,
+      disciplineId: 30,
+      scheduleId: 21  ,
+      schoolYear: "2022.1",
+    },
+  ];
+
+  return classes;
 }
