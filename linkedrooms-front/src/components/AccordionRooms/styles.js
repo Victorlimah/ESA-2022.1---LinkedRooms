@@ -54,6 +54,10 @@ export const Container = styled.div`
         }
       }
     }
+
+    #name-block{
+      margin-left: 25px;
+    }
     `;
 
 export const Indicator = styled.div`
@@ -112,3 +116,20 @@ export const RoomNumber = styled.h2`
 margin-top: 20px;
   font-size: 20px;
 `; 
+
+export const Day = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+
+  span:hover{
+    cursor: pointer;
+    transform: scale(1.3);
+  }
+
+  #text{
+    width: 15%;
+  }
+`;
