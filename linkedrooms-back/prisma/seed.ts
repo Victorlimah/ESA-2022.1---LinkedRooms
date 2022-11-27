@@ -23,7 +23,7 @@ async function main() {
   await prisma.$executeRaw`TRUNCATE TABLE "blocks" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "period" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "courses" RESTART IDENTITY CASCADE;`;
-  await prisma.$executeRaw`TRUNCATE TABLE "classes" RESTART IDENTITY CASCADE;`;
+  // await prisma.$executeRaw`TRUNCATE TABLE "classes" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "teachers" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "schedules" RESTART IDENTITY CASCADE;`;
   await prisma.$executeRaw`TRUNCATE TABLE "rooms_tags" RESTART IDENTITY CASCADE;`;
@@ -35,7 +35,7 @@ async function main() {
   const blocks = blocksFactory();
   const periods = periodFactory();
   const courses = coursesFactory();
-  const classes = classesFactory();
+  // const classes = classesFactory();
   const teachers = teachersFactory();
   const schedules = schedulesFactory();
   const roomsTags = roomsTagsFactory();
@@ -69,8 +69,8 @@ async function main() {
   const discipline = await prisma.disciplines.createMany({ data: disciplines });
   console.log(`Created ${discipline.count} disciplines`);
 
-  const classe = await prisma.classes.createMany({ data: classes });
-  console.log(`Created ${classe.count} classes`);
+  // const classe = await prisma.classes.createMany({ data: classes });
+  // console.log(`Created ${classe.count} classes`);
 }
 
 main()
@@ -428,6 +428,46 @@ function disciplinesFactory(){
       workload: 60,
     },
     { name: "LIBRAS", code: "8105031", workload: 60 },
+    { name: "ANALISE E PROJETOS DE SISTEMAS", code: "8103180", workload: 60 },
+    { name: "ARQUITETURA DE COMPUTADORES II", code: "8103136", workload: 60 },
+    { name: "AVALIAÇÃO DA APRENDIZAGEM", code: "8102163", workload: 60 },
+    { name: "CALCULO I", code: "8103115", workload: 90 },
+    { name: "CALCULO II", code: "8103123", workload: 90 },
+    {
+      name: "CÁLCULO VETORIAL E GEOMETRIA ANALÍTICA",
+      code: "8103101",
+      workload: 60,
+    },
+    { name: "COMPUTADORES E SOCIEDADE", code: "8101236", workload: 30 },
+    { name: "CURRÍCULO E TRABALHO PEDAGÓGICO", code: "8102162", workload: 60 },
+    { name: "DIDÁTICA", code: "8102108", workload: 60 },
+    { name: "ESTRUTURA DE DADOS", code: "8103137", workload: 60 },
+    {
+      name: "FUNDAMENTOS ANTROFILOSÓFICOS DA EDUCAÇÃO",
+      code: "8102100",
+      workload: 60,
+    },
+    {
+      name: "FUNDAMENTOS PSICOLÓGICOS DA EDUCAÇÃO",
+      code: "8102107",
+      workload: 60,
+    },
+    {
+      name: "FUNDAMENTOS SOCIO-HISTÓRICOS DA EDUCAÇÃO",
+      code: "8102106",
+      workload: 60,
+    },
+    { name: "INTELIGENCIA ARTIFICIAL", code: "8103181", workload: 60 },
+    { name: "LINGUAGENS DECLARATIVAS", code: "8103167", workload: 60 },
+    { name: "PESQUISA APLICADA A COMPUTACAO", code: "8103166", workload: 60 },
+    { name: "POLÍTICA E GESTÃO DA EDUCAÇÃO", code: "8102126", workload: 60 },
+    {
+      name: "PRODUCAO DE MATERIAIS INSTRUCIONAIS",
+      code: "8103182",
+      workload: 60,
+    },
+    { name: "SISTEMAS MULTIMIDIA", code: "8103179", workload: 60 },
+    { name: "METODOLOGIA CIENTIFICA", code: "8103111", workload: 45 },
   ];
 
   return disciplines;

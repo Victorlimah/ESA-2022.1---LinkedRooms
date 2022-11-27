@@ -82,7 +82,6 @@ export const Indicator = styled.div`
   };
   color: ${(props) =>
     props.students === 0 ? "black" : "white"
-
   }
 `;
 

@@ -6,6 +6,7 @@ import { AppProvider } from "../providers/AppContext";
 
 import Dashboard from "../pages/dashboard";
 import Room from "../pages/Room";
+import CreateClasses from "../pages/createClasses";
 
 export default function Router() {
   return (
@@ -15,6 +16,7 @@ export default function Router() {
           <Route path="/" element={<h1>Olá mundo</h1>} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/room/:id" element={<Room/>} />
+          <Route path="/create-class" element={<CreateClasses />} />
           <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </AppProvider>
