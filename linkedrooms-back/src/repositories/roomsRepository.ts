@@ -7,19 +7,102 @@ type searchStudent = {
   scheduleId: number;
 };
 
+type roomSpot = {
+  id: number;
+  number: string,
+  blockId: number,
+  capacity: number,
+  students: number[],
+}
+
+type responseRoom = {
+  block: string;
+  rooms: roomSpot[];
+};
+
 export async function getRooms() {
   const rooms = await prisma.rooms.findMany();
   // para cada room usar a função getStudentsOfSchedulesRoom
-  return rooms;
+  // e retornar um array com os dados
+
+  const roomsScheduleSegunda = rooms.map(async (room) => {
+    const roomSchedule = await getStudentsOfSchedulesRoom(
+      "SEGUNDA",
+      room.blockId,
+      room.number
+    );
+    return { ...room, students: roomSchedule };
+  });
+
+  const roomsScheduleTerca = rooms.map(async (room) => {
+    const roomSchedule = await getStudentsOfSchedulesRoom(
+      "TERÇA",
+      room.blockId,
+      room.number
+    );
+    return { ...room, students: roomSchedule };
+  });
+
+  const roomsScheduleQuarta = rooms.map(async (room) => {
+    const roomSchedule = await getStudentsOfSchedulesRoom(
+      "QUARTA",
+      room.blockId,
+      room.number
+    );
+    return { ...room, students: roomSchedule };
+  });
+
+  const roomsScheduleQuinta = rooms.map(async (room) => {
+    const roomSchedule = await getStudentsOfSchedulesRoom(
+      "QUINTA",
+      room.blockId,
+      room.number
+    );
+    return { ...room, students: roomSchedule };
+  });
+
+  const roomsScheduleSexta = rooms.map(async (room) => {
+    const roomSchedule = await getStudentsOfSchedulesRoom(
+      "SEXTA",
+      room.blockId,
+      room.number
+    );
+    return { ...room, students: roomSchedule };
+  });
+
+
+  const roomsSegunda = { rooms: await Promise.all(roomsScheduleSegunda)}
+  const responseSegunda = formatResponseBlock(roomsSegunda);
+
+  const roomsTerca = { rooms: await Promise.all(roomsScheduleTerca) };
+  const responseTerca = formatResponseBlock(roomsTerca);
+
+  const roomsQuarta = { rooms: await Promise.all(roomsScheduleQuarta) };
+  const responseQuarta = formatResponseBlock(roomsQuarta);
+
+  const roomsQuinta = { rooms: await Promise.all(roomsScheduleQuinta) };
+  const responseQuinta = formatResponseBlock(roomsQuinta);
+
+  const roomsSexta = { rooms: await Promise.all(roomsScheduleSexta) };
+  const responseSexta = formatResponseBlock(roomsSexta);
+
+
+  const responseModel = [
+    { id: 1, day: "Segunda", rooms: responseSegunda },
+    { id: 2, day: "Terça", rooms: responseTerca },
+    { id: 3, day: "Quarta", rooms: responseQuarta },
+    { id: 4, day: "Quinta", rooms: responseQuinta },
+    { id: 5, day: "Sexta", rooms: responseSexta },  
+  ];
+
+  return responseModel;
 }
 
-export async function getStudentsOfSchedulesRoom(day: string, block: string, room: string){
+export async function getStudentsOfSchedulesRoom(day: string, block: number, room: string){
   const teste = await prisma.classes.findMany({
     where: {
       room: {
-        block: {
-          name: block,
-        },
+        blockId: block,
         number: room,
       },
     },
@@ -34,12 +117,12 @@ export async function getStudentsOfSchedulesRoom(day: string, block: string, roo
 
 function factoryResponse(day: string, data: searchStudent[]) {
   if (day === "SEGUNDA") {
-    let m1 = data.find((item) => item.scheduleId === 7);
-    let m2 = data.find((item) => item.scheduleId === 8);
-    let t1 = data.find((item) => item.scheduleId === 9);
-    let t2 = data.find((item) => item.scheduleId === 10);
-    let n1 = data.find((item) => item.scheduleId === 11);
-    let n2 = data.find((item) => item.scheduleId === 12);
+    let m1 = data.find((item) => item.scheduleId === 1);
+    let m2 = data.find((item) => item.scheduleId === 2);
+    let t1 = data.find((item) => item.scheduleId === 3);
+    let t2 = data.find((item) => item.scheduleId === 4);
+    let n1 = data.find((item) => item.scheduleId === 5);
+    let n2 = data.find((item) => item.scheduleId === 6);
 
     let a = m1 ? m1.students : 0;
     let b = m2 ? m2.students : 0;
@@ -124,5 +207,17 @@ function factoryResponse(day: string, data: searchStudent[]) {
   }
 }
 
+function formatResponseBlock(obj: {rooms: roomSpot[]}){
 
-// ALEGRA
+  const ra = obj.rooms.filter((item) => item.blockId === 1);
+  const rc = obj.rooms.filter((item) => item.blockId === 2);
+  const re = obj.rooms.filter((item) => item.blockId === 3);
+
+  const response = [
+    {block: "R.A", rooms: ra},
+    {block: "R.C", rooms: rc},
+    {block: "R.E", rooms: re},
+  ];
+
+  return response;
+}
