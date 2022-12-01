@@ -1,11 +1,13 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header(){
+  const navigate = useNavigate();
 
   return(
     <Container>
       <Title>LinkedRooms</Title>
-      <BackToHome>Back to Home</BackToHome>
+      <BackToHome onClick={() => navigate("/dashboard")}>Voltar para dashboard</BackToHome>
     </Container>
   );
 }

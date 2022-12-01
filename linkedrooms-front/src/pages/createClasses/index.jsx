@@ -1,6 +1,6 @@
 import * as S from './styles';
 
-import Header from '../../components/header';
+import Header from '../../components/Header';
 
 import { useState, useEffect } from 'react';
 import { getCreateClass } from '../../services/api/classesService';

@@ -67,7 +67,7 @@ export default function AccordionRooms() {
           <AccordionDetails>
             <Typography className='rooms'>
               {turma.rooms.map((room) => (
-                <Button onClick={() => openRoom(room.number)} variant="contained">
+                <Button onClick={() => openRoom(room.blockId, room.number)} variant="contained">
                   <S.Capacity>{room.capacity}</S.Capacity>
                   <S.Icons>
                     <BsSnow />
@@ -91,7 +91,7 @@ export default function AccordionRooms() {
     </S.Container>
   );
 
-  function openRoom(roomNumber) {
-    navigate(`/room/${roomNumber}`);
+  function openRoom(blockId, roomNumber) {
+    navigate(`/room/${blockId}/${roomNumber}`);
   }
 }

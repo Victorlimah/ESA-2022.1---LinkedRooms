@@ -15,7 +15,7 @@ export default function Router() {
         <Routes>
           <Route path="/" element={<h1>Olá mundo</h1>} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/room/:id" element={<Room/>} />
+          <Route path="/room/:blockId/:number" element={<Room/>} />
           <Route path="/create-class" element={<CreateClasses />} />
           <Route path="*" element={<h1>404</h1>} />
         </Routes>
