@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as S from './styles';
 
 import Header from '../../components/Header';
@@ -8,10 +9,9 @@ import { getClassesByRoomId } from '../../services/api/classesService';
 
 export default function Room() {
   const [day, setDay] = useState('segunda');
-  // a url da rota é /rooms/:blockId/:number
-  // o :blockId é o id do bloco e o :number é o número da sala
   const blockId = window.location.pathname.split('/')[2];
   const number = window.location.pathname.split('/')[3];
+  const days = ['segunda', 'terca', 'quarta', 'quinta', 'sexta' ];
 
   const data = {
     name: "R.A 201", tags: ["SI", "AR CONDICIONADO"], capacity: 30,
@@ -61,11 +61,11 @@ export default function Room() {
           ))}
         </S.Tags>
         <S.Day>
-          <S.DayButton onSelect={day === 'segunda'} onClick={() => setDay('segunda')}>Segunda</S.DayButton>
-          <S.DayButton onSelect={day === 'terca'} onClick={() => setDay('terca')}>Terça</S.DayButton>
-          <S.DayButton onSelect={day === 'quarta'} onClick={() => setDay('quarta')}>Quarta</S.DayButton>
-          <S.DayButton onSelect={day === 'quinta'} onClick={() => setDay('quinta')}>Quinta</S.DayButton>
-          <S.DayButton onSelect={day === 'sexta'} onClick={() => setDay('sexta')}>Sexta</S.DayButton>
+          {days.map((today, index) => (
+            <S.DayButton key={index} onSelect={day === today} onClick={() => setDay(today)}>
+              {capitalize(today)}
+            </S.DayButton>
+          ))}
         </S.Day>
 
         {data2[day]?.map((item) => (
@@ -92,4 +92,8 @@ export default function Room() {
       </S.Container>
     </>
   );
+
+  function capitalize(str){
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 }

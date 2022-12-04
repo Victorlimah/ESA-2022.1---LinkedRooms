@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import M from "materialize-css";
 
+import Admin from "../Admin";
 import AccordionRooms from "../../components/AccordionRooms";
 import AccordionCourses from "../../components/AccordionCourses";
 
@@ -34,6 +35,10 @@ export default function Dashboard() {
             <li className="tab">
               <a href="#courses">Cursos</a>
             </li>
+
+            <li className="tab">
+              <a href="#admin">Admin</a>
+            </li>
           </ul>
         </div>
       </nav>
@@ -46,6 +51,9 @@ export default function Dashboard() {
       </div>
       <div id="courses" className="col s12">
         <AccordionCourses />
+      </div>
+      <div id="admin" className="col s12">
+        <Admin />
       </div>
     </S.Container>
   );

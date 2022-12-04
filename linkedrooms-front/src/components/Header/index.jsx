@@ -7,7 +7,7 @@ export default function Header(){
   return(
     <Container>
       <Title>LinkedRooms</Title>
-      <BackToHome onClick={() => navigate("/dashboard")}>Voltar para dashboard</BackToHome>
+      <BackToHome onClick={() => navigate('/dashboard')}>Voltar para o dashboard</BackToHome>
     </Container>
   );
 }
