@@ -10,6 +10,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Users {
+  id        Int      @id @default(autoincrement())
+  name      String
+  role      Int
+  code      String
+
+
+  @@map("users")
+}
+
 model Tags {
   id        Int      @id @default(autoincrement())
   name      String

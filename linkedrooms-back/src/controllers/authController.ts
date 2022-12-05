@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import sendEmail from "../services/emailService";
+import { createUser } from "../services/authService";
 
-export async function signin(req: Request, res: Response) {
+export async function signup(req: Request, res: Response) {
   const {email} = req.body;
 
-  sendEmail(email)
+  createUser(email);
 }
