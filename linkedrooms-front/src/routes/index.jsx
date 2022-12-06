@@ -6,13 +6,14 @@ import { AppProvider } from "../providers/AppContext";
 
 import Dashboard from "../pages/dashboard";
 import Room from "../pages/Room";
+import SignIn from "../pages/signin";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <AppProvider>
         <Routes>
-          <Route path="/" element={<h1>Olá mundo</h1>} />
+          <Route path="/" element={<SignIn />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/room/:id" element={<Room/>} />
           <Route path="*" element={<h1>404</h1>} />
