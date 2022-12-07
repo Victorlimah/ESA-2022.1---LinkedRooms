@@ -6,7 +6,7 @@ import { AppProvider } from "../providers/AppContext";
 
 import Dashboard from "../pages/dashboard";
 import Room from "../pages/Room";
-import SignIn from "../pages/signin";
+import SignIn from "../pages/signin/signin";
 
 export default function Router() {
   return (
@@ -17,7 +17,7 @@ export default function Router() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/room/:id" element={<Room/>} />
           <Route path="*" element={<h1>404</h1>} />
-        </Routes>
+        </Routes>      
       </AppProvider>
     </BrowserRouter>
   );
