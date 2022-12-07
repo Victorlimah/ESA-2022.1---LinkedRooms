@@ -38,7 +38,6 @@ export default function SignIn() {
         .then((res) => {
             setToken(res.data);
             localStorage.setItem("token", token);
-            console.log(token);
             navigate("/dashboard");
         })
         .catch((error) => console.log(error));
