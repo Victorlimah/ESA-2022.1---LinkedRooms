@@ -1,3 +1,10 @@
+export type User = {
+  email: string,
+  name: string,
+  role: string,
+  code: string
+}
+
 export type TagDto = {
   name: string;
 };
