@@ -10,7 +10,7 @@ export async function create(userData: User) {
 }
 
 export async function search(param: string, value: string | number) {
-  return prisma.users.findFirst({
+  return await prisma.users.findFirst({
     where: {
       [param]: value,
     },

@@ -44,3 +44,13 @@ export async function signin(email: string) {
     console.log(error);
   }
 }
+
+export async function checkAccessCode(code: string) {
+  try {
+    const codeExists = await repository.search("code", code);
+    if(!codeExists) throw {type: "NotFound", message: "None account has this code."}
+    return codeExists;
+  } catch(error) {
+    console.log(error);
+  }
+}
