@@ -1,6 +1,7 @@
-import prisma from "../database/db";
+import prisma from "../database/db.js";
+import { User } from "../models/dataDto.js";
 
-export async function create(userData) {
+export async function create(userData: User) {
   const user = await prisma.users.create({
     data: {
       ...userData

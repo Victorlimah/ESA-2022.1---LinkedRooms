@@ -1,9 +1,9 @@
-import { User } from './../models/dataDto';
+import { User } from './../models/dataDto.js';
 import dotenv from "dotenv";
 import { MailService } from "@sendgrid/mail";
 dotenv.config();
 
-export default function sendEmail(userData: User) {
+export function sendEmail(userData: User) {
   const emailData = {
     email: userData.email,
     code: userData.code
@@ -20,13 +20,13 @@ export function sendAuthenticationEmail({
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const msg = {
-    to: email, // Change to your recipient
-    from: process.env.EMAILSENDLER, // Change to your verified sender
-    subject: 'Sending with SendGrid is Fun',
+    to: email,
+    from: process.env.EMAILSENDLER,
+    subject: 'Código de autorização LinkedRooms',
     text: `Seu código de autenticação é: ${code}`,
-    html: '<button>and easy to do anywhere, even with Node.js />',
+    html: `<h2>Seu código de autenticação é: ${code}<h2>`,
   };
-  console.log(msg);
+  
 
   if (msg.to.includes('dcx.ufpb.br')) {
     sgMail
@@ -38,6 +38,19 @@ export function sendAuthenticationEmail({
       console.error(error)
     })
   } else {
-    console.log("Email inválido! Tente usar um email dcx!");
+    throw {type: "unauthorized", message: "email inválido"};
   };
+}
+
+export function processUserName(email: string) {
+  const atLocation = email.indexOf("@");
+  const dotLocation = email.indexOf(".");
+
+  const unseparatedName = email.slice(0, atLocation);
+  let separatedName = unseparatedName.replace(".", " ");
+  
+  const processedName = separatedName[0].toUpperCase() + separatedName.slice(1, dotLocation + 1)  + 
+    separatedName[dotLocation + 1].toUpperCase() + separatedName.slice(dotLocation + 2);
+
+  return processedName;
 }
