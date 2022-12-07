@@ -72,7 +72,7 @@ model Schedule {
 
   classes   Classes[]
 
-  @@map("shedules")
+  @@map("schedules")
 }
 
 model Teachers {
@@ -90,13 +90,15 @@ model Classes {
   schoolYear String
 
   teacherId Int
-  sheduleId Int
+  scheduleId Int
   roomId    Int
   disciplineId Int
   room      Rooms    @relation(fields: [roomId], references: [id])
   teacher   Teachers @relation(fields: [teacherId], references: [id])
-  shedule   Schedule @relation(fields: [sheduleId], references: [id])
+  shedule   Schedule @relation(fields: [scheduleId], references: [id])
   discipline Disciplines @relation(fields: [disciplineId], references: [id])
+
+  @@map("classes")
 }
 
 model Disciplines {
@@ -138,4 +140,6 @@ model ClassGrid {
   period    Period   @relation(fields: [periodId], references: [id])
   course    Courses  @relation(fields: [courseId], references: [id])
   discipline Disciplines @relation(fields: [disciplineId], references: [id])
+
+  @@map("class_grid")
 }

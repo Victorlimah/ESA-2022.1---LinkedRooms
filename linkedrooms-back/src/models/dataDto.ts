@@ -54,10 +54,10 @@ export type ClassGridDto = {
 };
 
 export type ClassDto = {
-  teacherId: number;
-  roomId: number;
-  sheduleId: number;
   students: number;
-  disciplineId: number;
   schoolYear: string;
+  teacherId: number;
+  scheduleId: number;
+  roomId: number;
+  disciplineId: number;
 };
