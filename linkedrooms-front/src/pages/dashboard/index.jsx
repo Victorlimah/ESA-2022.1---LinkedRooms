@@ -7,6 +7,7 @@ import M from "materialize-css";
 import Admin from "../Admin";
 import AccordionRooms from "../../components/AccordionRooms";
 import AccordionCourses from "../../components/AccordionCourses";
+import Classes from "../../components/Classes";
 
 export default function Dashboard() {
   const [tabs, setTabs] = useState(null);
@@ -47,7 +48,7 @@ export default function Dashboard() {
         <AccordionRooms />
       </div>
       <div id="test2" className="col s12">
-        Teste
+        <Classes/>
       </div>
       <div id="courses" className="col s12">
         <AccordionCourses />

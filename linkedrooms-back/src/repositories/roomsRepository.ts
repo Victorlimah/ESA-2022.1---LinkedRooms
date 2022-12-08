@@ -1,11 +1,19 @@
+import { Rooms, Blocks } from '@prisma/client';
 import prisma  from "../database/db.js";
 
-import { Classes, Rooms } from "@prisma/client";
+import { RoomDto } from './../models/dataDto';
 
 type searchStudent = {
   students: number;
   scheduleId: number;
 };
+
+type tagSpot = {
+  blockId: number;
+  number: string;
+  tagsAdd: string[];
+  tagsRemove: string[];
+}
 
 type roomSpot = {
   id: number;
@@ -220,4 +228,122 @@ function formatResponseBlock(obj: {rooms: roomSpot[]}){
   ];
 
   return response;
+}
+
+function formatRoomBlock(obj: (Rooms & { block: Blocks })[]) {
+  return obj.map((item) => {
+    return {
+      id: item.id,
+      name: `${item.block.name} - ${item.number}`,
+      blockId: item.blockId,
+      capacity: item.capacity,
+      number: item.number,
+    };
+  });
+}
+
+export async function getRoomsBlocks() {
+  const rooms = await prisma.rooms.findMany({
+    include: {
+      block: true,
+    },
+  });
+
+  return formatRoomBlock(rooms);
+}
+
+export async function getRoomById(id: number) {
+  const room = await prisma.rooms.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      block: true,
+    },
+  });
+
+  return formatRoomBlock([room])[0];
+}
+
+export async function createRoom(data: RoomDto) {
+  const room = await prisma.rooms.create({
+    data: {
+      blockId: data.blockId,
+      capacity: data.capacity,
+      number: data.number,
+    },
+  });
+
+  return room;
+}
+
+export async function updateRoom(id: number, data: RoomDto) {
+  const room = await prisma.rooms.update({
+    where: {
+      id,
+    },
+    data: {
+      blockId: data.blockId,
+      capacity: data.capacity,
+      number: data.number,
+    },
+  });
+
+  return room;
+}
+
+export async function deleteRoom(id: number) {
+  const room = await prisma.rooms.delete({
+    where: {
+      id,
+    },
+  });
+
+  return room;
+}
+
+export async function addTag(tags: tagSpot){
+    const room = await prisma.rooms.findFirst({
+      where: {
+        number: tags.number,
+        blockId: tags.blockId,
+      }
+    });
+
+    if(room){
+      tags.tagsAdd.forEach(async (item) => {
+        const thisTag = await prisma.tags.findFirst({
+          where: {
+            name: item
+          }
+        });
+
+        if(thisTag){
+          await prisma.roomsTags.create({
+            data: {
+              roomId: room.id,
+              tagId: thisTag.id
+            }
+          });
+        }
+      });
+
+      tags.tagsRemove.forEach(async (item) => {
+        const thisTag = await prisma.tags.findFirst({
+          where: {
+            name: item
+          }
+        });
+
+        if(thisTag){
+          await prisma.roomsTags.deleteMany({
+            where: {
+              roomId: room.id,
+              tagId: thisTag.id
+            }
+          });
+        }
+      }
+      );
+    }
 }

@@ -10,7 +10,9 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
   font-size: 2rem;
-  color: black;
+  margin: 25px 0;
+  color: #003B8E;
+  font-weight: bold;
 `;
 
 export const Cards = styled.div`
@@ -22,7 +24,7 @@ export const Cards = styled.div`
 export const Card = styled.div`
   width: 200px;
   height: 200px;
-  background-color: #f5f5f5;
+  background-color: #003B8E;
   border-radius: 10px;
   flex-direction: column;
   margin: 10px;
@@ -30,11 +32,11 @@ export const Card = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-  color: black;
+  color: #fff;
   cursor: pointer;
 
   &:hover {
-    background-color: #e0e0e0;
+    background-color: #1565c0;
     transform: scale(1.05);
   }
 `;

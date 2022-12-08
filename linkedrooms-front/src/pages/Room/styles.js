@@ -14,6 +14,18 @@ export const NameRoom = styled.h1`
   margin: 15px 0 25px;
 `;
 
+export const TitleModal = styled.h2`
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+`;
+
+export const SubtitleModal = styled.h1`
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 15px 0 25px;
+`;
+
 export const Tags = styled.div`
   width: 100%;
   display: flex;
@@ -129,5 +141,66 @@ export const CardButton = styled.button`
   }
 `;
 
+export const Header = styled.header`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0;
+`;
 
+export const EditButton = styled.button`
+  transition: all 0.2s;
+  background: none;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 12px;
+  padding: 5px 15px;
+  border-radius: 12px;
+  cursor: pointer;
 
+  &&:focus, &&:hover, &&:active{
+    background: none;
+  }
+`;
+
+export const RoomTag = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0;
+  flex-wrap: wrap;
+`;
+
+export const TagRoom = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 5px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background-color: #003B8E;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+`;
+
+export const ActionButton = styled.button`
+  transition: all 0.2s;
+  background: none;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 12px;
+  padding: 5px 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  color: ${props => props.type !== 'cancel' ? '#fff' : '#003B8E'} ;
+  background-color: ${props => props.type !== 'cancel' ? '#003B8E' : '#fff'} ;
+
+  &&:focus, &&:hover, &&:active{
+    background-color: ${props => props.type !== 'cancel' ? '#003B8E' : '#fff'} ;
+  }
+`;
