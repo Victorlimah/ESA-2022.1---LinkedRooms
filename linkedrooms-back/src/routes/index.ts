@@ -1,11 +1,5 @@
 import { Router } from 'express';
-
 import authRouter from './authRouter.js';
-
-const routes = Router();
-
-export default routes;
-
 import roomsRouter from './roomsRouter.js';
 import classesRouter from './classesRouter.js';
 
