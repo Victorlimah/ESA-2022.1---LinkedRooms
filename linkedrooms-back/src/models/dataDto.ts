@@ -1,8 +1,15 @@
 export type User = {
   email: string,
+  password: string,
   name: string,
   role: string,
   code: string
+}
+
+export type NewUser = {
+  email: string,
+  password: string,
+  passwordConfirmation: string
 }
 
 export type TagDto = {

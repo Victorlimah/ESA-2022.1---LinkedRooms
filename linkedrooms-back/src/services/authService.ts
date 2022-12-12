@@ -1,29 +1,32 @@
 import * as repository from "../repositories/authRepository.js";
-import * as util from "../utils/emailUtils.js";
+import { processUserName, sendEmail } from "../utils/emailUtils.js";
 import { v4 as uuid} from "uuid";
 import { User } from "../models/dataDto.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { conflictError } from "../utils/errorUtils.js";
+import { encrypt } from "../utils/passwordUtils.js";
+
 dotenv.config();
 
-export async function createUser(email: string) {
-  try {
+export async function createUser({ email, password }) {
     const userExists = await repository.search("email", email);
-    if (userExists) throw { type: "conflict", message: "User already exists" };
+    if (userExists) throw conflictError("User already exists");
+
     const authorizationCode = uuid();
-    const name = util.processUserName(email);
+    const name = processUserName(email);
+    const encryptedPassword = encrypt(password);
 
     const newUser: User = {
-      email: email,
-      name: name,
+      email,
+      name,
+      password: encryptedPassword,
       role: process.env.ROLE,
       code: authorizationCode
     };
+
     repository.create(newUser);
-    util.sendEmail(newUser);
-  } catch(error) {
-    console.log(error);
-  }
+    sendEmail(newUser);
 }
 
 export async function signin(email: string) {
