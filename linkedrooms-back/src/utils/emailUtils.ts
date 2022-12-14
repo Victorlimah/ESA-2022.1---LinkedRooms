@@ -32,10 +32,10 @@ export function sendAuthenticationEmail({
     sgMail
       .send(msg)
       .then(() => {
-      console.log('Email sent')
+        console.log("Email sent");
     })
     .catch((error) => {
-      console.error(error)
+      console.error(error);
     })
   } else {
     throw {type: "unauthorized", message: "email inválido"};
