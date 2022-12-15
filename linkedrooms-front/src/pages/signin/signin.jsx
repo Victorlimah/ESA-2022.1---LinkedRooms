@@ -13,21 +13,35 @@ export default function SignIn() {
   return (
     <S.Container>
       <h1>LinkedRooms</h1>
-      <S.Form onSubmit={ submit }>
-        <S.Input
-          id="email"
-          type="email"
-          name="email"
-          placeholder="Insira seu email dcx"
-          onChange={e => setEmail(e.target.value)}
-        />
-        <S.Button type="submit">
-          Entrar
-        </S.Button>
-      </S.Form>
-      <h2 onClick={ () => navigate("/signup") }>
-        Ainda não registou seu email? Clique aqui!
-      </h2>
+      <S.Box>
+        <S.Header>
+          <h1>Login</h1>
+        </S.Header>
+        
+        <S.Form onSubmit={ submit }>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Digite seu email dcx"
+            onChange={e => setEmail(e.target.value)}
+          />
+          <input 
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Digite sua senha" 
+          />
+          <S.Button type="submit">
+            ENTRAR
+          </S.Button>
+        </S.Form>
+        <S.Footer>
+          <h2 onClick={ () => navigate("/signup") }>
+            Ainda não registou seu email? Clique aqui!
+          </h2>
+        </S.Footer>
+      </S.Box>
     </S.Container>
   );
   function submit(event) {

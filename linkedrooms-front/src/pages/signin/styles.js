@@ -7,11 +7,12 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #1565c0;
 
   > h1 {
-    font-size: 60px;
+    font-size: 35px;
     font-weight: 700;
-    color: #1565c0;
+    color: #FFFFFF;
     margin-bottom: 80px;
     top: 20px;
   }
@@ -23,13 +24,12 @@ export const Container = styled.div`
 
 export const Form = styled.form` 
   width: 400px;
-  height: 150px;
+  height: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-
 `;
 
 export const Input = styled.input`
@@ -38,13 +38,50 @@ export const Input = styled.input`
     background-color: grey;
 `;
 
-
 export const Button = styled.button`
-  height: 40px;
-  width: 50%;
+  height: 75px;
+  width: 100%;
   color: white;
   background-color: #1565c0;
   border: none;
   border-radius: 20px;
   cursor: pointer;
+  margin-top: 30px;
+  font-size: 18px;
+  font-weight: 500;
+`;
+
+export const Box = styled.div`
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  height: 580px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const Header = styled.div`
+  height: 25%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h1 {
+    font-size: 30px;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+`;
+
+export const Footer = styled.div`
+  height: 15%;
+  display: flex;
+  align-items: center;
+  h2 {
+    color: #1565c0;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
 `;
