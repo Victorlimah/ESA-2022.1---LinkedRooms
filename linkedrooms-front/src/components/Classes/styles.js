@@ -168,7 +168,7 @@ export const Cards = styled.div`
 
 export const Card = styled.div`
   width: 30%;
-  height: 250px;
+  height: 130px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,23 +176,27 @@ export const Card = styled.div`
   margin: 15px 10px;
   padding: 10px;
   border-radius: 25px;
-  background-color: #003B8E;
+  background-color: #1565c0;
   color: #fff;
+
+  :hover {
+    background-color: #003B8E;
+    transform: scale(1.05);
+    transition: all 0.4s ease-in-out;
+  }
 `;
 
 export const CardHeader = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 15px 0;
 `;
 
 export const CardText = styled.h1`
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
-  margin-bottom: 5px;
   text-align: center;
 `;
 
@@ -214,7 +218,7 @@ export const CardBody = styled.div`
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  margin: 15px 0;
+  margin-top: 10px;
 `;
 
 export const CardButton = styled.button`

@@ -22,6 +22,12 @@ export async function getClasses() {
     return classes;
 }
 
+export async function getDistinctClasses() {
+    //TODO: trocar para o distinct depois
+    const classes = await repository.getClasses();
+    return classes;
+}
+
 export async function getNew() {
     const data = await repository.getNew();
     return data;

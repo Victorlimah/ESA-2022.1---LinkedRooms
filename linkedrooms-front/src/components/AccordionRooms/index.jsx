@@ -35,6 +35,7 @@ export default function AccordionRooms() {
   useEffect(() => {
     async function getRooms() {
       const response = await GetRooms();
+      console.log(response);
       setTeste(response);
     }
     getRooms();
@@ -70,9 +71,9 @@ export default function AccordionRooms() {
                 <Button onClick={() => openRoom(room.blockId, room.number)} variant="contained">
                   <S.Capacity>{room.capacity}</S.Capacity>
                   <S.Icons>
-                    <BsSnow />
-                    <BsWind />
-                    <FcVideoProjector/>
+                    {room.tags.includes('VENTILADOR') && <BsWind />}
+                    {room.tags.includes('AR CONDICIONADO') && <BsSnow />}
+                    {room.tags.includes('PROJETOR') && <FcVideoProjector />}
                   </S.Icons>
                   <S.RoomNumber>{room.number}</S.RoomNumber>
                   <S.IndicatorGroup>

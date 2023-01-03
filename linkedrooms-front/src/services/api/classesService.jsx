@@ -10,6 +10,11 @@ export async function getAllClasses(){
   return response.data;
 }
 
+export async function getDistinctClasses(){
+  const response = await api.get('/classes/distinct');
+  return response.data;
+}
+
 export async function getNewClass() {
   const response = await api.get('/classes/new');
   return response.data;

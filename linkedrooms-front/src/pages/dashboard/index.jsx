@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import * as S from "./styles";
 
 import { useEffect, useState } from "react";
@@ -5,9 +7,9 @@ import { useEffect, useState } from "react";
 import M from "materialize-css";
 
 import Admin from "../Admin";
+import Classes from "../../components/Classes";
 import AccordionRooms from "../../components/AccordionRooms";
 import AccordionCourses from "../../components/AccordionCourses";
-import Classes from "../../components/Classes";
 
 export default function Dashboard() {
   const [tabs, setTabs] = useState(null);
@@ -20,8 +22,8 @@ export default function Dashboard() {
     <S.Container>
       <nav className="nav-extended">
         <div className="nav-wrapper">
-          <a href="#" className="brand-logo" id="logo">
-            LinkedRooms
+          <a className="brand-logo" id="logo">
+            SIGMAS
           </a>
         </div>
         <div className="nav-content">
@@ -35,6 +37,10 @@ export default function Dashboard() {
 
             <li className="tab">
               <a href="#courses">Cursos</a>
+            </li>
+
+            <li className="tab">
+              <a href="#about">Sobre</a>
             </li>
 
             <li className="tab">

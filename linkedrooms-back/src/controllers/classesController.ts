@@ -6,6 +6,11 @@ export async function getClasses(req: Request, res: Response) {
     res.send(classes);
 }
 
+export async function getDistinctClasses(req: Request, res: Response) {
+    const classes = await service.getDistinctClasses();
+    res.send(classes);
+}
+
 export async function getNew(req: Request, res: Response) {
     const data = await service.getNew();
     res.send(data);

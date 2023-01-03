@@ -1,4 +1,4 @@
-import { Rooms, Blocks } from '@prisma/client';
+import { Rooms, Blocks, Tags } from '@prisma/client';
 import prisma  from "../database/db.js";
 
 import { RoomDto } from './../models/dataDto';
@@ -6,6 +6,14 @@ import { RoomDto } from './../models/dataDto';
 type searchStudent = {
   students: number;
   scheduleId: number;
+};
+
+type roomsTags = {
+  id: number;
+  name: string;
+  capacity: number;
+  blockId: number;
+  tags: Tags[];
 };
 
 type tagSpot = {
@@ -20,7 +28,7 @@ type roomSpot = {
   number: string,
   blockId: number,
   capacity: number,
-  students: number[],
+  students: number[]
 }
 
 type responseRoom = {
@@ -29,9 +37,22 @@ type responseRoom = {
 };
 
 export async function getRooms() {
-  const rooms = await prisma.rooms.findMany();
-  // para cada room usar a função getStudentsOfSchedulesRoom
-  // e retornar um array com os dados
+  let rooms2 = await prisma.rooms.findMany(
+    {
+      include: {
+        tags: {
+          include: {
+            tag: true
+          }
+        },
+    }
+  }
+  );
+
+  const rooms = rooms2.map((room) => {
+    const tags = room.tags.map((tag) => tag.tag.name);
+    return { ...room, tags };
+  });
 
   const roomsScheduleSegunda = rooms.map(async (room) => {
     const roomSchedule = await getStudentsOfSchedulesRoom(
@@ -42,6 +63,7 @@ export async function getRooms() {
     return { ...room, students: roomSchedule };
   });
 
+  
   const roomsScheduleTerca = rooms.map(async (room) => {
     const roomSchedule = await getStudentsOfSchedulesRoom(
       "TERÇA",
@@ -94,7 +116,6 @@ export async function getRooms() {
   const roomsSexta = { rooms: await Promise.all(roomsScheduleSexta) };
   const responseSexta = formatResponseBlock(roomsSexta);
 
-
   const responseModel = [
     { id: 1, day: "Segunda", rooms: responseSegunda },
     { id: 2, day: "Terça", rooms: responseTerca },
@@ -102,7 +123,6 @@ export async function getRooms() {
     { id: 4, day: "Quinta", rooms: responseQuinta },
     { id: 5, day: "Sexta", rooms: responseSexta },  
   ];
-
   return responseModel;
 }
 
@@ -111,12 +131,17 @@ export async function getStudentsOfSchedulesRoom(day: string, block: number, roo
     where: {
       room: {
         blockId: block,
-        number: room,
+        number: room
       },
     },
     select: {
       students: true,
       scheduleId: true,
+      room: {
+        select: {
+          tags: true,
+        },
+      }
       },
   });
   const response = factoryResponse(day, teste);

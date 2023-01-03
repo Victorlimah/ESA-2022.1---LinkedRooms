@@ -2,7 +2,7 @@ import * as S from './styles';
 
 import { useState, useEffect } from 'react';
 
-import { createClass, getNewClass, getAllClasses, updateClass } from '../../services/api/classesService';
+import { createClass, getNewClass, getAllClasses, getDistinctClasses, updateClass } from '../../services/api/classesService';
 import Swal from 'sweetalert2';
 import { FiSettings } from 'react-icons/fi';
 
@@ -36,7 +36,7 @@ export default function Classes() {
   useEffect(() => {
     async function getClasses() {
       const response = await getNewClass();
-      const classes = await getAllClasses();
+      const classes = await getDistinctClasses();
       setData(response);
       setClasses(classes);
     }
@@ -279,6 +279,8 @@ export default function Classes() {
           </S.DivSchedule>
         </S.Form>
         )}
+        
+        
         <S.Cards>
           <S.Card onClick={() => setCreating(true)}>
           <S.CardHeader>
@@ -292,9 +294,6 @@ export default function Classes() {
             </S.CardHeader>
             <S.CardBody>
               <S.CardText>{item?.teacher}</S.CardText>
-              <S.CardText>{item?.day} {item?.schedule}</S.CardText>
-              <S.CardText>{item?.block} - {item?.number}</S.CardText>
-              <S.CardText>{item?.students} Alunos</S.CardText>
               <S.EditButton
                 data-target="modal1"
                 class="btn modal-trigger"

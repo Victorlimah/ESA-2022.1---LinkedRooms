@@ -52,6 +52,40 @@ export async function getClasses() {
   return classes;
 }
 
+export async function getDistinctClasses() {
+  const classes = await prisma.$queryRaw<allClasses[]>`
+    SELECT DISTINCT c.id, d.name, t.id as "teacherId", t.name as "teacher", c.students,
+    s.day, s.schedule, b.name as "block", r.number, r.id as "roomId" FROM
+    classes c JOIN teachers t ON c."teacherId" = t.id
+    JOIN rooms r ON c."roomId" = r.id
+    JOIN blocks b ON r."blockId" = b.id
+    JOIN disciplines d ON c."disciplineId" = d.id
+    JOIN schedules s ON c."scheduleId" = s.id
+  `;
+
+  // return classes so that there are no duplicates
+  // duplicates == same teacher, same discipline, same block, same number, same schedule
+  const response = [];
+
+  classes.forEach((c) => {
+    const index = response.findIndex(
+      (r) =>
+        r.teacher === c.teacher &&
+        r.name === c.name &&
+        r.block === c.block &&
+        r.number === c.number
+    );
+
+    if (index === -1) {
+      response.push(c);
+    }
+  }
+  );
+
+  return response;
+
+}
+
 export async function getCreate() {
   let teachers: Teachers[];
   let disciplines: Disciplines[];
