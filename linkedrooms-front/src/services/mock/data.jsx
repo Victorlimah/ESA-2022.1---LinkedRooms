@@ -10,7 +10,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -21,7 +22,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -32,7 +34,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -49,7 +52,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -60,7 +64,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -71,7 +76,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -88,7 +94,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -99,7 +106,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -110,7 +118,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -127,7 +136,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -138,7 +148,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -149,7 +160,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -166,7 +178,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -177,7 +190,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },
@@ -188,7 +202,8 @@ const data = [
             id: 1,
             number: '101',
             capacity: 40,
-            students: [0, 0, 0, 0, 0, 0]
+            students: [0, 0, 0, 0, 0, 0],
+            tags: ['VENTILADOR', 'PROJETOR']
           },
         ]
       },

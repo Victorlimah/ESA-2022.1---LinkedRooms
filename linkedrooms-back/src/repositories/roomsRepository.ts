@@ -1,18 +1,34 @@
+import { Rooms, Blocks, Tags } from '@prisma/client';
 import prisma  from "../database/db.js";
 
-import { Classes, Rooms } from "@prisma/client";
+import { RoomDto } from './../models/dataDto';
 
 type searchStudent = {
   students: number;
   scheduleId: number;
 };
 
+type roomsTags = {
+  id: number;
+  name: string;
+  capacity: number;
+  blockId: number;
+  tags: Tags[];
+};
+
+type tagSpot = {
+  blockId: number;
+  number: string;
+  tagsAdd: string[];
+  tagsRemove: string[];
+}
+
 type roomSpot = {
   id: number;
   number: string,
   blockId: number,
   capacity: number,
-  students: number[],
+  students: number[]
 }
 
 type responseRoom = {
@@ -21,9 +37,22 @@ type responseRoom = {
 };
 
 export async function getRooms() {
-  const rooms = await prisma.rooms.findMany();
-  // para cada room usar a função getStudentsOfSchedulesRoom
-  // e retornar um array com os dados
+  let rooms2 = await prisma.rooms.findMany(
+    {
+      include: {
+        tags: {
+          include: {
+            tag: true
+          }
+        },
+    }
+  }
+  );
+
+  const rooms = rooms2.map((room) => {
+    const tags = room.tags.map((tag) => tag.tag.name);
+    return { ...room, tags };
+  });
 
   const roomsScheduleSegunda = rooms.map(async (room) => {
     const roomSchedule = await getStudentsOfSchedulesRoom(
@@ -34,6 +63,7 @@ export async function getRooms() {
     return { ...room, students: roomSchedule };
   });
 
+  
   const roomsScheduleTerca = rooms.map(async (room) => {
     const roomSchedule = await getStudentsOfSchedulesRoom(
       "TERÇA",
@@ -86,7 +116,6 @@ export async function getRooms() {
   const roomsSexta = { rooms: await Promise.all(roomsScheduleSexta) };
   const responseSexta = formatResponseBlock(roomsSexta);
 
-
   const responseModel = [
     { id: 1, day: "Segunda", rooms: responseSegunda },
     { id: 2, day: "Terça", rooms: responseTerca },
@@ -94,7 +123,6 @@ export async function getRooms() {
     { id: 4, day: "Quinta", rooms: responseQuinta },
     { id: 5, day: "Sexta", rooms: responseSexta },  
   ];
-
   return responseModel;
 }
 
@@ -103,12 +131,17 @@ export async function getStudentsOfSchedulesRoom(day: string, block: number, roo
     where: {
       room: {
         blockId: block,
-        number: room,
+        number: room
       },
     },
     select: {
       students: true,
       scheduleId: true,
+      room: {
+        select: {
+          tags: true,
+        },
+      }
       },
   });
   const response = factoryResponse(day, teste);
@@ -220,4 +253,122 @@ function formatResponseBlock(obj: {rooms: roomSpot[]}){
   ];
 
   return response;
+}
+
+function formatRoomBlock(obj: (Rooms & { block: Blocks })[]) {
+  return obj.map((item) => {
+    return {
+      id: item.id,
+      name: `${item.block.name} - ${item.number}`,
+      blockId: item.blockId,
+      capacity: item.capacity,
+      number: item.number,
+    };
+  });
+}
+
+export async function getRoomsBlocks() {
+  const rooms = await prisma.rooms.findMany({
+    include: {
+      block: true,
+    },
+  });
+
+  return formatRoomBlock(rooms);
+}
+
+export async function getRoomById(id: number) {
+  const room = await prisma.rooms.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      block: true,
+    },
+  });
+
+  return formatRoomBlock([room])[0];
+}
+
+export async function createRoom(data: RoomDto) {
+  const room = await prisma.rooms.create({
+    data: {
+      blockId: data.blockId,
+      capacity: data.capacity,
+      number: data.number,
+    },
+  });
+
+  return room;
+}
+
+export async function updateRoom(id: number, data: RoomDto) {
+  const room = await prisma.rooms.update({
+    where: {
+      id,
+    },
+    data: {
+      blockId: data.blockId,
+      capacity: data.capacity,
+      number: data.number,
+    },
+  });
+
+  return room;
+}
+
+export async function deleteRoom(id: number) {
+  const room = await prisma.rooms.delete({
+    where: {
+      id,
+    },
+  });
+
+  return room;
+}
+
+export async function addTag(tags: tagSpot){
+    const room = await prisma.rooms.findFirst({
+      where: {
+        number: tags.number,
+        blockId: tags.blockId,
+      }
+    });
+
+    if(room){
+      tags.tagsAdd.forEach(async (item) => {
+        const thisTag = await prisma.tags.findFirst({
+          where: {
+            name: item
+          }
+        });
+
+        if(thisTag){
+          await prisma.roomsTags.create({
+            data: {
+              roomId: room.id,
+              tagId: thisTag.id
+            }
+          });
+        }
+      });
+
+      tags.tagsRemove.forEach(async (item) => {
+        const thisTag = await prisma.tags.findFirst({
+          where: {
+            name: item
+          }
+        });
+
+        if(thisTag){
+          await prisma.roomsTags.deleteMany({
+            where: {
+              roomId: room.id,
+              tagId: thisTag.id
+            }
+          });
+        }
+      }
+      );
+    }
 }
