@@ -1,6 +1,6 @@
 import { Router } from 'express';
-
-import tagsRouter from './tagsRouter.js';
+import authRouter from "./authRouter.js";
+import tagsRouter from "./tagsRouter.js";
 import roomsRouter from './roomsRouter.js';
 import coursesRouter from './coursesRouter.js';
 import classesRouter from './classesRouter.js';
@@ -9,6 +9,7 @@ import disciplinesRouter from './disciplinesRouter.js';
 
 const routes = Router();
 
+routes.use(authRouter);
 routes.use("/tags", tagsRouter);
 routes.use("/rooms", roomsRouter);
 routes.use("/courses", coursesRouter);
