@@ -3,36 +3,44 @@ import {  useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 export default function SignIn() {
   const URL = "http://localhost:5000/signin";
-  const [email, setEmail] = useState("");
+  const [userData, setUserData] = useState({
+    email: "",
+    password: ""
+  });
   const [ token, setToken ] = useState("");
   const navigate = useNavigate();  
+  const [display, setDisplay] = useState("none");
 
   return (
     <S.Container>
-      <h1>LinkedRooms</h1>
       <S.Box>
-        <S.Header>
+        <S.FHeader>
           <h1>Login</h1>
-        </S.Header>
-        
+        </S.FHeader>   
         <S.Form onSubmit={ submit }>
           <input
             id="email"
             type="email"
-            name="email"
+            name="input"
             placeholder="Digite seu email dcx"
-            onChange={e => setEmail(e.target.value)}
+            onChange={ e => 
+              setUserData({ ...userData, email: e.target.value }) 
+            }
           />
           <input 
             id="password"
             type="password"
-            name="password"
+            name="input"
+            minLength='6'
             placeholder="Digite sua senha" 
+            onChange={ e => 
+              setUserData({ ...userData, password: e.target.value })
+            }
           />
-          <S.Button type="submit">
+          <S.ErrorMessage display={display} >{`Email ou senha incorreto(a)!`}</S.ErrorMessage>
+          <S.Button type="submit" on>
             ENTRAR
           </S.Button>
         </S.Form>
@@ -48,12 +56,15 @@ export default function SignIn() {
     event.preventDefault();
   
     axios
-        .get(URL, { email })
+        .post(URL, userData)
         .then((res) => {
             setToken(res.data);
             localStorage.setItem("token", token);
             navigate("/dashboard");
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error)
+          setDisplay("initial");
+        });
   }
 }
