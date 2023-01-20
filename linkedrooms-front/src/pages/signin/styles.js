@@ -7,7 +7,8 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #1565c0;
+  background: rgb(0,198,251);
+  background: linear-gradient(63deg, rgba(0,198,251,1) 35%, rgba(0,91,234,1) 100%);
 ;
 
   > h1 {
@@ -18,15 +19,10 @@ export const Container = styled.div`
     top: 20px;
   }
 
-  #sigma {
-    font-size: 70px;
-    color: #FFFFFF;
-  }
-
   > h2 {
     cursor: pointer;
   }
-`
+`;
 
 export const Form = styled.form` 
   width: 400px;
@@ -57,6 +53,24 @@ export const Form = styled.form`
   }
 
   #password {
+    border: none;
+    font-size: 19px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding-left: 10px;
+    background-color: #F8F9FA;
+
+    ::placeholder {
+      margin-right: 10px;
+      font-size: 19px;
+    }
+
+    :focus {
+      box-shadow: 0 0 0 0;
+      outline: 0;
+    }
+  }
+  #confirmPassword {
     border: none;
     font-size: 19px;
     border-radius: 10px;

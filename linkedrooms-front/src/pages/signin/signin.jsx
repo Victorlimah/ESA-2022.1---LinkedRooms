@@ -54,7 +54,6 @@ export default function SignIn() {
   );
   function submit(event) {
     event.preventDefault();
-  
     axios
         .post(URL, userData)
         .then((res) => {
