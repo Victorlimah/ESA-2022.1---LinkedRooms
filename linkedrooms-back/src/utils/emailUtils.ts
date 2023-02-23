@@ -8,6 +8,7 @@ export function sendEmail(userData: User) {
     email: userData.email,
     code: userData.code
   };
+  console.log(emailData);
 
   sendAuthenticationEmail(emailData);
 }

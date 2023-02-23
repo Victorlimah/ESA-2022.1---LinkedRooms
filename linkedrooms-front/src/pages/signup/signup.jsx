@@ -1,7 +1,7 @@
 import * as S from "../signin/styles";
-import {  useState } from "react";
-import axios from "axios";
+import {  useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AppContext, AppProvider } from "../../providers/AppContext";
 
 export default function SignIn() {
   const URL = "http://localhost:5000/signin";
@@ -10,6 +10,7 @@ export default function SignIn() {
     password: "",
     confirmPassword: ""
   });
+  const { setNewUser } = useContext(AppContext);
   const navigate = useNavigate();  
   const [display, setDisplay] = useState("none");
 
@@ -65,16 +66,8 @@ export default function SignIn() {
   function submit(event) {
     event.preventDefault();
     if (userData.password === userData.confirmPassword) {
-      axios
-      .post(URL, userData)
-      .then((res) => {
-          
-          navigate("/dashboard");
-      })
-      .catch((error) => {
-        console.log(error)
-        
-      });  
+      setNewUser(userData);
+      navigate("/authentication");
     } else {
       setDisplay("initial");
     }

@@ -41,7 +41,7 @@ export default function SignIn() {
           />
           <S.ErrorMessage display={display} >{`Email ou senha incorreto(a)!`}</S.ErrorMessage>
           <S.Button type="submit" on>
-            ENTRAR
+            ENVIAR
           </S.Button>
         </S.Form>
         <S.Footer>
